@@ -23,8 +23,8 @@ export const comparePassword = async (
 };
 
 // ─── JWT Tokens ──────────────────────────────────────────────────────
-export const generateAccessToken = (userId: string, email: string): string => {
-  return jwt.sign({ userId, email }, ENV.JWT_SECRET, {
+export const generateAccessToken = (userId: string, email: string, role: string): string => {
+  return jwt.sign({ userId, email, role }, ENV.JWT_SECRET, {
     expiresIn: ACCESS_TOKEN_EXPIRY,
   });
 };
@@ -46,8 +46,8 @@ export const generateRefreshToken = async (userId: string): Promise<string> => {
   return token;
 };
 
-export const verifyAccessToken = (token: string): { userId: string; email: string } => {
-  return jwt.verify(token, ENV.JWT_SECRET) as { userId: string; email: string };
+export const verifyAccessToken = (token: string): { userId: string; email: string; role: string } => {
+  return jwt.verify(token, ENV.JWT_SECRET) as { userId: string; email: string; role: string };
 };
 
 // ─── Email Verification Token ────────────────────────────────────────

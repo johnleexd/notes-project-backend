@@ -156,7 +156,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     }
 
     // 5. Generate tokens
-    const accessToken = generateAccessToken(user.id, user.email!);
+    const accessToken = generateAccessToken(user.id, user.email!, user.role);
     const refreshToken = await generateRefreshToken(user.id);
 
     // 6. Set refresh token as HttpOnly cookie
@@ -217,7 +217,7 @@ export const refreshAccessToken = async (req: Request, res: Response): Promise<v
     }
 
     // Generate new pair of tokens (rotation)
-    const newAccessToken = generateAccessToken(user.id, user.email!);
+    const newAccessToken = generateAccessToken(user.id, user.email!, user.role);
     const newRefreshToken = await generateRefreshToken(user.id);
 
     // Set new refresh token cookie
